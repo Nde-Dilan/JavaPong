@@ -59,7 +59,7 @@ public class Ball {
         double normalIntersection = relativeIntersect/(paddle.getHeight()/2.0);
         double theta = normalIntersection * Constants.MAX_ANGLE;
 
-        return  theta;
+        return  Math.toRadians(theta);
     }
 
     public void update(double dt) {
@@ -68,7 +68,7 @@ public class Ball {
                     rect.getY() + rect.getHeight() >= leftPaddle.getY() && rect.getY() <= leftPaddle.getY()+leftPaddle.getHeight()){
             double theta = CalculateNewVelocity(leftPaddle);
             double newVx = Math.abs(Math.cos(theta)*Constants.BALL_SPEED);
-            double newVy = Math.abs(Math.sin(theta)*Constants.BALL_SPEED);
+            double newVy = Math.abs(-Math.sin(theta)*Constants.BALL_SPEED);
                 System.out.println(newVx);
                 System.out.println(newVy);
             double oldSign = Math.signum(vx);
@@ -106,5 +106,24 @@ public class Ball {
         }
         rect.setX(rect.getX()+vx*dt);
         rect.setY(rect.getY()+vy*dt);
+
+        if(this.rect.getX()+this.rect.getWidth()<leftPaddle.getX()){
+            int rightScore = Integer.parseInt(Window.rightScoreText.text);
+            rightScore++;
+            Window.rightScoreText.text = ""+rightScore;
+            this.rect.setX(Constants.SCREEN_WIDTH/2.0);
+            this.rect.setY(Constants.SCREEN_HEIGHT/2.0);
+            this.vx=Constants.VX_VALUE;
+            this.vy=Constants.VY_VALUE;
+        }else if(this.rect.getX()+this.rect.getWidth()>rightPaddle.getX()+rightPaddle.getWidth()){
+            int leftScore = Integer.parseInt(Window.leftScoreText.text);
+            leftScore++;
+            Window.leftScoreText.text = ""+leftScore;
+            this.rect.setX(Constants.SCREEN_WIDTH/2.0);
+            this.rect.setY(Constants.SCREEN_HEIGHT/2.0);
+            this.vx=Constants.VX_VALUE;
+            this.vy=Constants.VY_VALUE;
+        }
+
     }
 }

@@ -15,12 +15,17 @@ public class Constants {
     public static final Color BALL_COLOR = Color.WHITE;
     public static final int H_PADDING = 40;
     public static final int Y_VALUE = 300;
-    public static final double VX_VALUE = 300;
-    public static final double VY_VALUE = 300;
+    public static final double VX_VALUE = -300.0;
+    public static final double VY_VALUE = 10.0;
 
 
     public static double TOOLBAR_HEIGHT = 300;
     public static double INSET_BOTTOM = 300;
     public static final double MAX_ANGLE = 45;
+
+
+    public static final int TEXT_Y_POS = 50;
+    public static final int TEXT_SIZE = 24;
+    public static final double TEXT_X_POS = 100;
 
 }

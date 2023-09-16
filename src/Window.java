@@ -15,6 +15,10 @@ public class Window extends JFrame implements  Runnable{
     AIController aiController;
     public Ball ball;
 
+    public static Text leftScoreText;
+    public int leftScore;
+    public static Text rightScoreText;
+    public int rightScore;
     //Default constructor
     public Window() {
         this.setSize(Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
@@ -36,6 +40,13 @@ public class Window extends JFrame implements  Runnable{
         ballRect = new Rect(Constants.SCREEN_WIDTH / 2, (Constants.SCREEN_HEIGHT / 2)-100, Constants.BALL_WIDTH, Constants.BALL_WIDTH, Constants.BALL_COLOR);
         ball = new Ball(ballRect, playerOne, ai);
         aiController = new AIController(new PlayerController(ai), ballRect);
+
+        //For the score
+        this.leftScore=0;
+        this.rightScore=0;
+        Font font = new Font("Consolas", Font.BOLD,Constants.TEXT_SIZE);
+        leftScoreText = new Text(leftScore,font,Constants.TEXT_X_POS,Constants.TEXT_Y_POS);
+        rightScoreText = new Text(rightScore,font,Constants.SCREEN_WIDTH-100,Constants.TEXT_Y_POS);
     }
     public void update(double dt){
         /* if(kl.isKeyPressed(KeyEvent.VK_UP)){
@@ -51,6 +62,17 @@ public class Window extends JFrame implements  Runnable{
         aiController.update(dt);
         ball.update(dt);
 
+    }
+
+    private void draw(Graphics doubleBuffetGraphic) {
+        Graphics2D g2 =  (Graphics2D) doubleBuffetGraphic;
+        g2.setColor(Color.BLACK);
+        g2.fillRect(0,0,Constants.SCREEN_WIDTH,Constants.SCREEN_HEIGHT);
+        playerOne.draw(g2);
+        ai.draw(g2);
+        leftScoreText.draw(g2);
+        rightScoreText.draw(g2);
+        ballRect.draw(g2);
     }
     public void run(){
 
@@ -74,13 +96,5 @@ public class Window extends JFrame implements  Runnable{
         }
     }
 
-    private void draw(Graphics doubleBuffetGraphic) {
-        Graphics2D g2 =  (Graphics2D) doubleBuffetGraphic;
-        g2.setColor(Color.BLACK);
-        g2.fillRect(0,0,Constants.SCREEN_WIDTH,Constants.SCREEN_HEIGHT);
 
-        playerOne.draw(g2);
-        ai.draw(g2);
-        ballRect.draw(g2);
-    }
 }
