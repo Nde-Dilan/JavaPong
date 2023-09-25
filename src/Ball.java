@@ -111,19 +111,23 @@ public class Ball {
             int rightScore = Integer.parseInt(Window.rightScoreText.text);
             rightScore++;
             Window.rightScoreText.text = ""+rightScore;
-            this.rect.setX(Constants.SCREEN_WIDTH/2.0);
-            this.rect.setY(Constants.SCREEN_HEIGHT/2.0);
-            this.vx=Constants.VX_VALUE;
-            this.vy=Constants.VY_VALUE;
+            resetAndCheck(rightScore);
         }else if(this.rect.getX()+this.rect.getWidth()>rightPaddle.getX()+rightPaddle.getWidth()){
             int leftScore = Integer.parseInt(Window.leftScoreText.text);
             leftScore++;
             Window.leftScoreText.text = ""+leftScore;
-            this.rect.setX(Constants.SCREEN_WIDTH/2.0);
-            this.rect.setY(Constants.SCREEN_HEIGHT/2.0);
-            this.vx=Constants.VX_VALUE;
-            this.vy=Constants.VY_VALUE;
+            resetAndCheck(leftScore);
+
         }
 
+    }
+    public void resetAndCheck(int score){
+        this.rect.setX(Constants.SCREEN_WIDTH/2.0);
+        this.rect.setY(Constants.SCREEN_HEIGHT/2.0);
+        this.vx=Constants.VX_VALUE;
+        this.vy=Constants.VY_VALUE;
+        if(score>=Constants.WIN_SCORE){
+            System.out.println("You won");
+        }
     }
 }

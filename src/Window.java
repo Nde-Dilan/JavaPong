@@ -2,7 +2,7 @@ package src;
 
 import javax.swing.*;
 import java.awt.*;
-
+//TODO: Redirect the user to the menu page
 public class Window extends JFrame implements  Runnable{
 
     public Graphics2D g2;
@@ -19,6 +19,8 @@ public class Window extends JFrame implements  Runnable{
     public int leftScore;
     public static Text rightScoreText;
     public int rightScore;
+    public static boolean isRunning=true;
+
     //Default constructor
     public Window() {
         this.setSize(Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
@@ -31,6 +33,7 @@ public class Window extends JFrame implements  Runnable{
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         // We have to register this key listener to our window
         this.addKeyListener(kl);
+
         g2 = (Graphics2D) this.getGraphics();
 
         playerOne = new Rect(Constants.H_PADDING, Constants.Y_VALUE, Constants.PADDLE_WIDTH, Constants.PADDLE_HEIGHT, Constants.PADDLE_COLOR);
@@ -74,12 +77,15 @@ public class Window extends JFrame implements  Runnable{
         rightScoreText.draw(g2);
         ballRect.draw(g2);
     }
+    public void stop(){
+        isRunning =false;
+    }
     public void run(){
 
         //determine how much time has passed between the frames
         double lastFrameTime = 0.0;
 
-        while(true){
+        while(isRunning){
             // this is the game loop
             double time = Time.getTime();
             double dt = time - lastFrameTime;
@@ -91,9 +97,9 @@ public class Window extends JFrame implements  Runnable{
             }catch (Exception ignored){
 
             }*/
-
-
         }
+        this.dispose();
+        return;
     }
 
 
